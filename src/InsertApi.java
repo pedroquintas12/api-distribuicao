@@ -76,7 +76,7 @@ public class InsertApi {
                                     java.util.Date parsedDate = dateFormat.parse(dataDistribuicaoFormatted);
                                     statementProcesso.setDate(11, new java.sql.Date(parsedDate.getTime()));
                                 } catch (ParseException e) {
-                                   logger.log(Level.WARNING, "ERRO AO INSERIR DADOS " + e);
+                                    logger.log(Level.WARNING, "ERRO AO INSERIR DADOS " + e);
                                 }
                             } else {
                                 statementProcesso.setNull(11, 0);
@@ -108,7 +108,7 @@ public class InsertApi {
                                     inserirOutrosEnvil(connection, idProcesso, dados.getOutrosEnvolvidos());
                                     inserirMovimentos(connection, idProcesso, dados.getMovimentos());
                                     inserirLink(connection, idProcesso, dados.getDocumentosIniciais());
-                                    inserirDocInicial(connection, idProcesso,dados.getListaDocumentos());
+                                    inserirDocInicial(connection, idProcesso, dados.getListaDocumentos());
 
                                 }
                             }
@@ -244,21 +244,37 @@ public class InsertApi {
 
     private void inserirDocInicial(Connection conn, int idProcesso, List<RetornoListDocument> docInicial) throws SQLException {
         if (docInicial != null && !docInicial.isEmpty()) {
+<<<<<<< Updated upstream
             String sql = "INSERT INTO apidistribuicao.processo_docinicial (ID_processo, link_documento, doc_peticao_inicial) VALUES (?, ?, ?)";
             try (PreparedStatement statementDocInicial = conn.prepareStatement(sql)) {
                 for (RetornoListDocument DocInicial : docInicial) {
                         statementDocInicial.setInt(1, idProcesso);
                         statementDocInicial.setString(2, DocInicial.getLinkDocumento());
                         statementDocInicial.setBoolean(3, DocInicial.isDocPeticaoInicial());
+=======
+            String sql = "INSERT INTO apidistribuicao.processo_docinicial (ID_processo, link_documento, tipo, doc_peticao_inicial) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement statementDocInicial = conn.prepareStatement(sql)) {
+                for (RetornoListDocument DocInicial : docInicial) {
+                    statementDocInicial.setInt(1, idProcesso);
+                    statementDocInicial.setString(2, DocInicial.getLinkDocumento());
 
-                        statementDocInicial.executeUpdate();
-                        inseridoComSucesso = true;
+                    // Define o tipo baseado no link
+                    if (DocInicial.getLinkDocumento().contains("RESUMO")) {
+                        statementDocInicial.setString(3, "Resumo");
+                    } else if (DocInicial.getLinkDocumento().contains("PREDITIVO")) {
+                        statementDocInicial.setString(3, "Preditivo");
+                    } else {
+                        statementDocInicial.setString(3, "Principal");
+                    }
+>>>>>>> Stashed changes
 
+                    statementDocInicial.setBoolean(4, DocInicial.isDocPeticaoInicial());
+
+                    statementDocInicial.executeUpdate();
+                    inseridoComSucesso = true;
                 }
             }
-
         }
-
     }
-
 }
+
