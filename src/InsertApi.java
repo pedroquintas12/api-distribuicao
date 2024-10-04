@@ -244,14 +244,6 @@ public class InsertApi {
 
     private void inserirDocInicial(Connection conn, int idProcesso, List<RetornoListDocument> docInicial) throws SQLException {
         if (docInicial != null && !docInicial.isEmpty()) {
-<<<<<<< Updated upstream
-            String sql = "INSERT INTO apidistribuicao.processo_docinicial (ID_processo, link_documento, doc_peticao_inicial) VALUES (?, ?, ?)";
-            try (PreparedStatement statementDocInicial = conn.prepareStatement(sql)) {
-                for (RetornoListDocument DocInicial : docInicial) {
-                        statementDocInicial.setInt(1, idProcesso);
-                        statementDocInicial.setString(2, DocInicial.getLinkDocumento());
-                        statementDocInicial.setBoolean(3, DocInicial.isDocPeticaoInicial());
-=======
             String sql = "INSERT INTO apidistribuicao.processo_docinicial (ID_processo, link_documento, tipo, doc_peticao_inicial) VALUES (?, ?, ?, ?)";
             try (PreparedStatement statementDocInicial = conn.prepareStatement(sql)) {
                 for (RetornoListDocument DocInicial : docInicial) {
@@ -266,7 +258,6 @@ public class InsertApi {
                     } else {
                         statementDocInicial.setString(3, "Principal");
                     }
->>>>>>> Stashed changes
 
                     statementDocInicial.setBoolean(4, DocInicial.isDocPeticaoInicial());
 
@@ -276,5 +267,6 @@ public class InsertApi {
             }
         }
     }
+
 }
 
