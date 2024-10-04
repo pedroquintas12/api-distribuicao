@@ -244,12 +244,20 @@ public class InsertApi {
 
     private void inserirDocInicial(Connection conn, int idProcesso, List<RetornoListDocument> docInicial) throws SQLException {
         if (docInicial != null && !docInicial.isEmpty()) {
-            String sql = "INSERT INTO apidistribuicao.processo_docinicial (ID_processo, link_documento, doc_peticao_inicial) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO apidistribuicao.processo_docinicial (ID_processo, link_documento, tipo, doc_peticao_inicial) VALUES (?, ?, ?)";
             try (PreparedStatement statementDocInicial = conn.prepareStatement(sql)) {
                 for (RetornoListDocument DocInicial : docInicial) {
                         statementDocInicial.setInt(1, idProcesso);
                         statementDocInicial.setString(2, DocInicial.getLinkDocumento());
-                        statementDocInicial.setBoolean(3, DocInicial.isDocPeticaoInicial());
+                        if (DocInicial.getLinkDocumento().contains("RESUMO")){
+                            statementDocInicial.setString(3,"Resumo");
+                        }else if (DocInicial.getLinkDocumento().contains("PREDITIVO")){
+                            statementDocInicial.setString(3,"Preditivo");
+                        }else {
+                            statementDocInicial.setString(3,"Principal");
+                        }
+
+                        statementDocInicial.setBoolean(4, DocInicial.isDocPeticaoInicial());
 
                         statementDocInicial.executeUpdate();
                         inseridoComSucesso = true;
