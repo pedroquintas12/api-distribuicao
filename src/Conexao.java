@@ -21,7 +21,7 @@ public class Conexao {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://26.191.28.12:3306/apidistribuicao","pedro","123456");
+        return DriverManager.getConnection("jdbc:mysql://26.214.86.184:3306/apidistribuicao","pedro","123456");
      }
      public static void main(String[]args){
         try {
