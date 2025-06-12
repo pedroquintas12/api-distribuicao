@@ -27,7 +27,8 @@ public class Main {
 
 
         try {
-            String logDirectory = "C:\\Users\\pedro\\OneDrive - LIG CONTATO DIÁRIO FORENSE\\DISTRIBUIÇÃO\\LOG DISTRIBUICÃO\\";
+
+            String logDirectory = "LOG DISTRIBUICÃO\\";
 
             Path logDirectoryPath = Paths.get(logDirectory);
             if (!Files.exists(logDirectoryPath)) {

@@ -1,0 +1,3 @@
+nov. 19, 2024 9:54:47 AM Main lambda$executarCodigo$0
+WARNING: Resposta da API: Não foi encontrado resultado com os dados informados.
+ Status: 400
